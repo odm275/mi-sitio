@@ -1,16 +1,16 @@
 ---
-name: Tails Azimuth
-avatar: /static/images/avatar.png
-occupation: Professor of Atmospheric Science
-company: Stanford University
-email: address@yoursite.com
-twitter: https://twitter.com/Twitter
+name: Oscar Mejia
+avatar: /static/images/avatar.jpg
+occupation: Software Developer
+company: Self Employed
+email: oscarmejiaweb@gmail.com
+twitter: https://twitter.com/spaceicediver
 linkedin: https://www.linkedin.com
-github: https://github.com
+github: https://github.com/odm275
 ---
 
-Tails Azimuth is a professor of atmospheric sciences at the Stanford AI Lab. His research interests includes complexity modelling of tailwinds, headwinds and crosswinds.
+Oscar Mejia is a Software Developer in Houston, Texas.
 
-He leads the clean energy group which develops 3D air pollution-climate models, writes differential equation solvers, and manufactures titanium plated air ballons. In his free time he bakes raspberry pi.
+He is intersted in building Software practically, efficiently, and painlessly. Thus, to that goal his interes include Typescript, tRPC, React, GraphQL, Chackra UI, and Tailwind.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
+He leads and takes part in disucssing projects from ideas with clients, works with designers to produce mock ups, and develops full fledged web applications.
