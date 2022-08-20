@@ -1,8 +1,8 @@
 const siteMetadata = {
-  title: 'Next.js Starter Blog',
+  title: 'Oscar Mejia Tech Blog',
   author: 'Oscar Mejia',
   headerTitle: 'Oscar Mejia',
-  description: 'A blog created with Next.js and Tailwind.css',
+  description: 'A blog created to showcase my thoughts and projects',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
