@@ -16,6 +16,33 @@ identified to be able to accommodate growing pains.
 
 ## Planning the App
 
+Planning the app: Database, Backend, and Front End.
+
+### Database
+
+Given that the App was going to be heavily relational in nature. The natural choice was SQL. I considered planetscale(mysql) due to their
+superb version control database management features, however, given the scale of the project, I felt that a postgres instance on railway was the best option as
+I wouldn't end up needed all the fancy database version control features. Hence, I went with a postgres instance on railway.
+
+The Database Fluid Charts
+
+### Backend
+
+For a long time GraphQ, but then trpc, grpahql seemed redundant. Next.js api routes because better developer experience, easier deployment.
+
+#### Auth0
+
+Wanted to Focus on building the App, rather than implementing authentication.
+Show the hooks in Auth0 maybe?
+
+### Frontend
+
+Even thought the app is all client rendered. I went with next.js. React Query, I considered loading data in the server, but stuck the interactivity,
+seamnless user flow optimistic queries produce, and simplier to manage.
+Chackra UI, it is a internal tool, no need for slick design, but still need a cohesive and professional look.
+React Hook Form for form management.
+useReducer for handling orders Form.
+
 <!-- ## Pain Points:
 
 - Unorganized Inventory and Orders
