@@ -1,7 +1,7 @@
 ---
-title: Mise - Case Study
+title: Mise - Case Study (A FullStack Project)
 date: '2022-08-19'
-tags: ['fullstack', 'software development', 'case study']
+tags: ['Next.js', 'tRPC', 'prisma', 'postgreSQL']
 draft: false
 summary: Case Study of the Mise Project
 ---
@@ -20,9 +20,22 @@ Planning the app: Database, Backend, and Front End.
 
 ### Database
 
-Given that the App was going to be heavily relational in nature. The natural choice was SQL. I considered planetscale(mysql) due to their
-superb version control database management features, however, given the scale of the project, I felt that a postgres instance on railway was the best option as
-I wouldn't end up needed all the fancy database version control features. Hence, I went with a postgres instance on railway.
+When deciding a database I had the following considerations:
+
+1.  SQL or NoSQL. Choosing SQL
+
+    - Given that the App was going to be heavily relational in nature. The natural choice was SQL.
+    - Unless there is a very specific need for a NoSQL database, a relational database will lead to less suffering.
+    - Prisma db push allows me to skip migrations if I really want to. Thus, I can be nimble like in noSQL but keep retain the benefit from SQL databases bring.
+
+2.  Choose a Cloud Provider (Heroku, Railway, Render, Planetscale). Choosing Railway
+
+    - I considered planetscale(mysql) due to their superb version control database management features, however,
+      given the scale of the project, I felt it was overkill. If the project had an unlimited budget, I would have gone with planetscale.
+
+    - Railway was the easiests to set up and their payment costs were right. I spun up a Postgres staging and production instance in less than 5 minutes 😳
+
+Now that I had my database requirements set, I went on to design the Database schema:
 
 The Database Fluid Charts
 
@@ -32,8 +45,10 @@ For a long time GraphQ, but then trpc, grpahql seemed redundant. Next.js api rou
 
 #### Auth0
 
-Wanted to Focus on building the App, rather than implementing authentication.
-Show the hooks in Auth0 maybe?
+Auth is sometimes complicated, and I wanted an easy and robust solution. Wanted to Focus on building the App, rather than implementing authentication.
+
+For Authentication I considered NextAuth.js, however for this application having a password and username is important, this authentication method
+is not well supported in NextAuth.js, so I ended up going with Auth0.
 
 ### Frontend
 
