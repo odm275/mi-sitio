@@ -8,47 +8,96 @@ summary: Case Study of the Mise Project
 
 # The Challenge:
 
-Candelaris and its businesses have a vital mission: To deliver the authentic Italian experience to the people. An efficient management of their inventory and orders
-needs to occur in order for them to be able to deliver the Italian experience to the people.
+Candelaris and its businesses have a vital mission: To deliver the authentic Italian experience to people in Houston.
+An efficient management of their inventory and orders
+needs to occur in order for them to be able to accomplish that.
 Candelaris and its businesses needed a comprehensive technology program to improve their inventory management, employee trainning, communication between
-managers and kitchens, and orders between the kitchen commisary and its locations. And as an expanding businesses, critical improvements were
-identified to be able to accommodate growing pains.
+managers and kitchens, and orders between the kitchen commisary and its locations.
+As an expanding businesses, critical improvements were identified to be able to accommodate growing pains.
 
-## Planning the App
+## Deciding my Tech Stack
 
-Planning the app: Database, Backend, and Front End.
+I treated the development of Mise like a startup. I wanted be fast, nimble, efficient, and reliable. Thus, my tech stack choice set to fit those qualities.
 
 ### Database
 
 When deciding a database I had the following considerations:
 
-1.  SQL or NoSQL. Choosing SQL
+1.  SQL or NoSQL
 
     - Given that the App was going to be heavily relational in nature. The natural choice was SQL.
-    - Unless there is a very specific need for a NoSQL database, a relational database will lead to less suffering.
-    - Prisma db push allows me to skip migrations if I really want to. Thus, I can be nimble like in noSQL but keep retain the benefit from SQL databases bring.
+    - Unless there is a very specific need for a NoSQL database, a relational database will generally lead to less suffering.
+    - Prisma db push allows me to skip migrations if I really want to. Thus, I can be nimble like with noSQL but keep retain the type stricness and relational benefits from SQL databases bring.
 
-2.  Choose a Cloud Provider (Heroku, Railway, Render, Planetscale). Choosing Railway
+2.  Choose a Cloud Provider (Heroku, Railway, Render, Planetscale).
 
     - I considered planetscale(mysql) due to their superb version control database management features, however,
       given the scale of the project, I felt it was overkill. If the project had an unlimited budget, I would have gone with planetscale.
 
     - Railway was the easiests to set up and their payment costs were right. I spun up a Postgres staging and production instance in less than 5 minutes 😳
 
-Now that I had my database requirements set, I went on to design the Database schema:
+Thus, I went with a PostgreSQL instance on Railway.
+Now that I had my database requirements set, I went on to design the Database schema for the application:
 
 The Database Fluid Charts
+![Mise Database Schema](/static/images/projects/mise/mise_db_schema.png)
 
 ### Backend
 
-For a long time GraphQ, but then trpc, grpahql seemed redundant. Next.js api routes because better developer experience, easier deployment.
+For the backend I was mainly looking for **a safe** way to call my backend from my frontend. REST, GraphQL, and tRPC were all great candidates, however, tRPC
+was the the best for this project. Here are some of the trade offs I considered:
+
+##### GraphQL
+
+- Pros:
+  - Creates a type safe way to call my backend from the frontend (Ex: GraphQL Code Generator).
+  - Useful for stablishing a contract between the Frontend and the Backend.
+  - Suited for a public facing API.
+  - Solves overfetching in the front end.
+  - Can use multiple programing languages.
+- Cons:
+  - Its mental model takes more work to plan.
+  - Relies on Code Generation to safely call backend from the frontend.
+
+##### REST
+
+- Pros:
+  - Creates a type safe way to call my backend from my frontend (Ex: Swagger)
+  - Can use multiple programing languages.
+  - Suited for a public facing API.
+  - Easier mental model than GraphQL. I just create end points as I need them.
+- Cons:
+  - Relies on Code Generation to safely call backend from the frontend.
+
+##### tRPC
+
+- Pros:
+  - Creates a type safe way to call my backend from my frontend.
+  - Automatic typescript connection between the front end and the backend. For example, if I make a change in the
+    backend, typescript intellisense will document it live on VSCode.
+  - Intellisense auto documentation. Hence, I open up some curly braces and I get a list of the apis available in my backend.
+  - Easiest mental model. I just create end points as I need them, and they are intellisensed automatically.
+- Cons:
+  - Has to be a monorepo.
+  - Tight coupling of frontend and backend.
+  - Backend has to be written in typescript.
+  - Best suited for internal services.
+
+Overall, trpc had the best trade offs for this application. The cons are all negible in this instance, and I get to reap all the pros. Alas,
+I have a safe way to call my backend from my frontend, and I get top tier automatic intellisense. Thus, the values fast, nimble, efficient, and reliable
+that I'm looking to get are preserved.
+
+#### Next.js vs Custom Backend
 
 #### Auth0
 
-Auth is sometimes complicated, and I wanted an easy and robust solution. Wanted to Focus on building the App, rather than implementing authentication.
+In the spirit of focusing my time in actually building the application, and being fast and nimble, I went with Auth0. I had everything having to do with
+authentication set up in less than hour. And most of the features around auth0 were well documentated and easy to grasps.
+Hence, going with Auth0 was an excellent choice for my application.
 
-For Authentication I considered NextAuth.js, however for this application having a password and username is important, this authentication method
-is not well supported in NextAuth.js, so I ended up going with Auth0.
+I considered NextAuth.js, however for this application having a clasic credentials(email and password) authentication was important,
+and this authentication method is explicily marked as limited in functionality with Next.js Auth.
+Hence, I refrained from NextAuth.js
 
 ### Frontend
 
