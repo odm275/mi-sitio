@@ -83,15 +83,18 @@ was the the best for this project. Here are some of the trade offs I considered:
   - Backend has to be written in typescript.
   - Best suited for internal services.
 
-Overall, trpc had the best trade offs for this application. The cons are all negible in this instance, and I get to reap all the pros. Alas,
-I have a safe way to call my backend from my frontend, and I get top tier automatic intellisense. Thus, the values fast, nimble, efficient, and reliable
-that I'm looking to get are preserved.
+Overall, trpc had the best trade offs for this application. The cons were all negible for my case, and I got to reap all the pros. Alas,
+I have a safe way to call my backend from my frontend, and I get top tier automatic intellisense. Thus, fast, nimble, efficient, and reliable
+qualities I'm looking are maintained.
 
 #### Next.js vs Custom Backend
 
+Given that tRPC made the most sense for me, I embraced the coupling of frontend and backend, and went with Next.js API routes as the backend.
+It worked amazing. I got a fullstack monorepo out the box, with typescript support and minimal set up.
+
 #### Auth0
 
-In the spirit of focusing my time in actually building the application, and being fast and nimble, I went with Auth0. I had everything having to do with
+In the spirit of focusing my time in actually building the application, being fast and nimble, I went with Auth0. I had everything having to do with
 authentication set up in less than hour. And most of the features around auth0 were well documentated and easy to grasps.
 Hence, going with Auth0 was an excellent choice for my application.
 
@@ -101,8 +104,15 @@ Hence, I refrained from NextAuth.js
 
 ### Frontend
 
-Even thought the app is all client rendered. I went with next.js. React Query, I considered loading data in the server, but stuck the interactivity,
-seamnless user flow optimistic queries produce, and simplier to manage.
-Chackra UI, it is a internal tool, no need for slick design, but still need a cohesive and professional look.
-React Hook Form for form management.
-useReducer for handling orders Form.
+For this App I had the freedom to either render it on the client or the backend since the app was all behind a credentials log in.
+I opted to client render most of the app in order to have it feel snappy and interactive to the user, and I used React Query to manage the server state.
+
+React Query is an amazing library to handle server state. By default, I opted to invalidate queries whenever data was updated, and I used optimisitic queries
+for parts of the app I wanted to feel fluid and snappy.
+
+I used React Hook Form for most of the forms. As Forms get large, and complex, it is often hard to manage re-renders. Hence, I let react-hook-form manage
+complex forms.
+
+For the styling, I considered between Chackra UI and Tailwindcss.
+
+For the checkout form
