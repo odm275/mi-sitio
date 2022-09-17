@@ -32,7 +32,8 @@ When deciding a database I had the following considerations:
 
     - Given that the App was going to be heavily relational in nature. The natural choice was SQL.
     - Unless there is a very specific need for a NoSQL database, a relational database will generally lead to less suffering.
-    - Prisma db push allows me to skip migrations if I really want to. Thus, I can be **nimble** like with noSQL but keep retain the type strictness and relational benefits from SQL databases bring.
+    - Prisma db push allows me to skip migrations if I really want to. Thus, I can be **nimble** like with noSQL but keep retain the type strictness
+      and relational benefits from SQL databases bring.
 
 2.  Choose a Cloud Provider (Heroku, Railway, Render, PlanetScale).
 
@@ -98,10 +99,10 @@ Thus, the **fast**, **nimble**, and **reliable** qualities I'm looking for are m
 #### Next.js vs Custom Backend
 
 Given that tRPC made the most sense for me, I embraced the coupling of frontend and backend, and went with Next.js API routes as the backend.
-It worked amazing. I got a fullstack monorepo out the box, with fullstack typescript support out the box, minimal set up, and the freedom to render on the server
-or on the client as needed.
+It worked amazing. I got a fullstack monorepo out the box, with fullstack typescript support out the box, minimal set up, and
+the freedom to render on the server or on the client as needed.
 
-##### ZoD
+#### ZoD
 
 #### Prisma
 
@@ -120,19 +121,43 @@ Thus, I refrained from NextAuth.js for this specific case.
 
 For this App I had the freedom to either render it on the client, the backend, or a mix of both since the app was all behind a credentials log in.
 I opted to client render most of the app in order to have it feel snappy and interactive to the user, and
-I used [React Query](https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/) to manage the server state.
+I used [React Query](https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/) to manage the
+server state, [React Hook Form](https://react-hook-form.com/) for managing state in forms, useState for simple UI state, and
+[useReducer](https://beta.reactjs.org/apis/react/useReducer) for more complex state.
 
 #### React Query
 
 [React Query](https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/) is an amazing library to handle server state.
 By default, I opted to invalidate queries whenever data was updated, and I used optimistic queries for parts of the app I wanted to feel instant and snappy.
 
+Maybe give an example here?
+
 #### React Hook Form
 
 I used [React Hook Form](https://react-hook-form.com/) for most of the forms. As Forms get large, and complex, it is often hard to manage re-renders in forms.
 Hence, I let [React Hook Form](https://react-hook-form.com/) manage complex forms.
 
-#### Styling
+Maybe give an example here?
 
-For the styling, I considered between Chakra UI, Tailwind CSS, and Ant Design. There are several pros and cons to each. But ultimately, I went with Chakra UI
-because I get full fledged React Components
+#### Use Reducer
+
+Give example here? Talk about thought consideration between use reducer and state machines
+
+#### UI
+
+For the UI I considered between [Chakra UI](https://chakra-ui.com/), [tailwindcss](https://tailwindcss.com/), and [Ant Design](https://ant.design/).
+
+Ant Design is an opinionated UI React framework. It has an opinion on how it is going to look, so it less customizable, and it has opinions on how to handle
+data submitted from forms and such. Given that I wanted to use React Hook Form to handle the state in my forms -- hacking it to work with AntD is possible,
+but it would require more effort. Thus, I refrained from using AntD.
+
+Tailwind has mostly everything I'm looking for. At its core it is just css so it is minimally intrusive and won't conflict with how I may want to manage state or my forms.
+Furthermore, it is just css so it framework agnostic if I ever need to switch off react.
+Furthermore, it is highly customizable to whatever look I want to give it.
+
+Chakra UI is a less opinionated UI React framework that is just at the right sweet spot of doing things for you and giving you the freedom to
+handle things how you see it. Furthermore, it is React out the box. Hence, I can just copy paste Chackra UI components into my code and have a working
+example instantly.
+
+Having taking all these considerations into account. I felt that Chackra UI slightly edged Tailwind for my specific use case, and that I was going get
+the most productivity, and control when I needed from it. Thus, I went with Chackra UI to handle my UI.
