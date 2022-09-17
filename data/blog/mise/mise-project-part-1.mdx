@@ -1,9 +1,9 @@
 ---
-title: Mise - Case Study (A FullStack Project)
+title: Mise - Case Study (Part 1)
 date: '2022-08-19'
 tags: ['Next.js', 'tRPC', 'prisma', 'postgreSQL']
 draft: false
-summary: Case Study of the Mise Project
+summary: This post contains the reasoning I used to decide the tech stack for this Mise.
 ---
 
 # The Challenge:
@@ -11,13 +11,18 @@ summary: Case Study of the Mise Project
 Candelaris and its businesses have a vital mission: To deliver the authentic Italian experience to people in Houston.
 An efficient management of their inventory and orders
 needs to occur in order for them to be able to accomplish that.
-Candelaris and its businesses needed a comprehensive technology program to improve their inventory management, employee trainning, communication between
-managers and kitchens, and orders between the kitchen commisary and its locations.
+Candelaris and its businesses needed a comprehensive technology program to improve their inventory management, employee training, communication between
+managers and kitchens, and orders between the kitchen commissary and its locations.
 As an expanding businesses, critical improvements were identified to be able to accommodate growing pains.
 
 ## Deciding my Tech Stack
 
-I treated the development of Mise like a startup. I wanted be **fast**, **nimble**, and **reliable**. Thus, my tech stack choice set to fit those qualities.
+A growing business is a lot like a startup. Candelaris and its businesses were expanding so their needs are in constant flux as they are in the
+process of understanding what works for them at a larger scale. Hence, the tech stack needed to be **nimble** in order to be adaptable to the changes in a growing
+business. Furthermore, I wanted to be **fast** in those changes so that I could have cushion to look a the bigger picture? And lastly, **reliable** so the
+User gets a professional experience?
+
+**fast**, **nimble**, and **reliable**.
 
 ### Database
 
@@ -27,14 +32,14 @@ When deciding a database I had the following considerations:
 
     - Given that the App was going to be heavily relational in nature. The natural choice was SQL.
     - Unless there is a very specific need for a NoSQL database, a relational database will generally lead to less suffering.
-    - Prisma db push allows me to skip migrations if I really want to. Thus, I can be **nimble** like with noSQL but keep retain the type stricness and relational benefits from SQL databases bring.
+    - Prisma db push allows me to skip migrations if I really want to. Thus, I can be **nimble** like with noSQL but keep retain the type strictness and relational benefits from SQL databases bring.
 
-2.  Choose a Cloud Provider (Heroku, Railway, Render, Planetscale).
+2.  Choose a Cloud Provider (Heroku, Railway, Render, PlanetScale).
 
-    - I considered planetscale(mysql) due to their superb version control database management features, however,
-      given the scale of the project, I felt it was overkill. If the project had an unlimited budget, I would have gone with planetscale.
+    - I considered PlanetScale(mysql) due to their superb version control database management features, however,
+      given the scale of the project, I felt it was overkill. If the project had an unlimited budget, I would have gone with PlanetScale.
 
-    - Railway was the easiests to set up and their payment costs were right. I spun up a Postgres staging and production instance in less than 5 minutes 😳
+    - Railway was the easiest to set up and their payment costs were right. I spun up a Postgres staging and production instance in less than 5 minutes 😳
 
 In the end, I went with a PostgreSQL instance on Railway.
 Now that I had my database requirements set, I went on to design the Database schema for the application:
@@ -51,9 +56,9 @@ was the the best for this project. Here are some of the trade offs I considered:
 
 - Pros:
   - Creates a type safe way to call my backend from the frontend (Ex: GraphQL Code Generator).
-  - Useful for stablishing a contract between the Frontend and the Backend.
+  - Useful for establishing a contract between the Frontend and the Backend.
   - Suited for a public facing API.
-  - Solves overfetching in the front end (ex: Performance issues).
+  - Solves over-fetching in the front end (ex: Performance issues).
   - Can use multiple programing languages.
 - Cons:
   - Its mental model takes more work to plan.
@@ -78,7 +83,7 @@ was the the best for this project. Here are some of the trade offs I considered:
   - Automatic typescript connection between the front end and the backend. For example, if I make a change in the
     backend, typescript intellisense will document it live on VSCode.
   - Intellisense auto documentation. Hence, I open up some curly braces and I get a list of the apis available in my backend.
-  - Easiest mental model. I just create end points as I need them, and they are intellisensed automatically.
+  - Easiest mental model. I just create end points as I need them, and get intellisense automatically.
   - Migrating off it is simple. I just copy paste my code into resolvers and endpoints.
 - Cons:
   - Has to be a monorepo.
@@ -86,8 +91,8 @@ was the the best for this project. Here are some of the trade offs I considered:
   - Backend has to be written in typescript.
   - Best suited for internal services.
 
-Overall, trpc had the best trade offs for this application. The cons were all negible for my case, and I got to reap all the pros. Alas,
-I have a **safe** way to call my backend from my frontend, I get top tier automatic intellisense, and if I ever choose to migrate off it, the proccess would be easy.
+Overall, tRPC had the best trade offs for this application. The cons were all negligible for my case, and I got to reap all the pros. Alas,
+I have a **safe** way to call my backend from my frontend, I get top tier automatic intellisense, and if I ever choose to migrate off it, the process would be easy.
 Thus, the **fast**, **nimble**, and **reliable** qualities I'm looking for are maintained.
 
 #### Next.js vs Custom Backend
@@ -96,10 +101,6 @@ Given that tRPC made the most sense for me, I embraced the coupling of frontend 
 It worked amazing. I got a fullstack monorepo out the box, with fullstack typescript support out the box, minimal set up, and the freedom to render on the server
 or on the client as needed.
 
-#### TRPC Resolvers
-
-##### TRPC middleware
-
 ##### ZoD
 
 #### Prisma
@@ -107,12 +108,12 @@ or on the client as needed.
 #### Auth0
 
 In the spirit of focusing my time in actually building the application, I went with [Auth0](https://auth0.com/). I had everything having to do with
-authentication set up in less than hour. And most of the features around auth0 were well documentated and easy to grasps.
+authentication set up in less than hour. And most of the features around auth0 were well documented and easy to grasps.
 Hence, going with [Auth0](https://auth0.com/) was an excellent choice for my application. This satisfied the **nimble** constraint too since I could
 easily build my own auth without sacrificing previous work because setting up auth0 in next.js is no more than a few lines of code.
 
-I considered [NextAuth.js](https://next-auth.js.org/), however for this application having a clasic credentials(email and password) authentication was important,
-and this authentication method is explicily marked as limited in functionality with[NextAuth.js](https://next-auth.js.org/).
+I considered [NextAuth.js](https://next-auth.js.org/), however for this application having a classic credentials(email and password) authentication was important,
+and this authentication method is explicity marked as limited in functionality with[NextAuth.js](https://next-auth.js.org/).
 Thus, I refrained from NextAuth.js for this specific case.
 
 ### Frontend
@@ -123,8 +124,8 @@ I used [React Query](https://tanstack.com/query/v4/?from=reactQueryV3&original=h
 
 #### React Query
 
-[React Query](https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/) is an amazing library to handle server state. By default, I opted to invalidate queries whenever data was updated, and I used optimisitic queries
-for parts of the app I wanted to feel instant and snappy.
+[React Query](https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/) is an amazing library to handle server state.
+By default, I opted to invalidate queries whenever data was updated, and I used optimistic queries for parts of the app I wanted to feel instant and snappy.
 
 #### React Hook Form
 
@@ -133,7 +134,5 @@ Hence, I let [React Hook Form](https://react-hook-form.com/) manage complex form
 
 #### Styling
 
-For the styling, I considered between Chackra UI, Tailwind CSS, and Ant Design. There are several pros and cons to each. But ultimately, I went with Chackra UI
+For the styling, I considered between Chakra UI, Tailwind CSS, and Ant Design. There are several pros and cons to each. But ultimately, I went with Chakra UI
 because I get full fledged React Components
-
-#### Checkout Flow
