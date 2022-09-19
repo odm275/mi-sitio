@@ -1,5 +1,5 @@
 ---
-title: Mise - Case Study (Part 1)
+title: Mise - Case Study
 date: '2022-08-19'
 tags: ['Next.js', 'tRPC', 'prisma', 'postgreSQL']
 draft: false
@@ -9,31 +9,38 @@ summary: This post contains the reasoning I used to decide the tech stack for th
 # The Challenge:
 
 Candelaris and its businesses have a vital mission: To deliver the authentic Italian experience to people in Houston.
-An efficient management of their inventory and orders
-needs to occur in order for them to be able to accomplish that.
+An efficient management of their inventory and orders needs to occur in order for them to be able to accomplish that.
 Candelaris and its businesses needed a comprehensive technology program to improve their inventory management, employee training, communication between
 managers and kitchens, and orders between the kitchen commissary and its locations.
 As an expanding businesses, critical improvements were identified to be able to accommodate growing pains.
 
 ## Deciding my Tech Stack
 
-A growing business is a lot like a startup. Candelaris and its businesses were expanding so their needs are in constant flux as they are in the
-process of understanding what works for them at a larger scale. Hence, the tech stack needed to be **nimble** in order to be adaptable to the changes in a growing
-business. Furthermore, I wanted to be **fast** in those changes so that I could have cushion to look a the bigger picture? And lastly, **reliable** so the
-User gets a professional experience?
-
-**fast**, **nimble**, and **reliable**.
+Candelaris and its businesses are expanding so their needs are in constant flux as they are in the
+process of understanding what works for them at a larger scale. Hence, the tech stack needed to be **nimble** in order to be adaptable
+to the changes of a growing business, and be **reliable** so the user gets a professional experience.
+Thus, I built **_Mise_** to be an app that brought those qualities together.
 
 ### Database
 
-When deciding a database I had the following considerations:
+When deciding a database I had two considerations. What type of database I was going to use, and where I wanted to host it.
 
-1.  SQL or NoSQL
+1.  Choosing a Database:
 
+- SQL
+
+  - Pros 👍🏼:
     - Given that the App was going to be heavily relational in nature. The natural choice was SQL.
-    - Unless there is a very specific need for a NoSQL database, a relational database will generally lead to less suffering.
+    - SQL is type safe. Hence, increases the **reliability**
     - Prisma db push allows me to skip migrations if I really want to. Thus, I can be **nimble** like with noSQL but keep retain the type strictness
       and relational benefits from SQL databases bring.
+
+- NoSQL
+  - Pros 👍🏼:
+    - I don't have to define a schema. Thus, I can stay **nimble**.
+  - Cons 👎🏼:
+    - Not having a schema, often leads to less **reliable** data.
+    - Less **reliable** data leads to more bugs, more bugs lead time burn(lose **speed**).
 
 2.  Choose a Cloud Provider (Heroku, Railway, Render, PlanetScale).
 
@@ -42,69 +49,70 @@ When deciding a database I had the following considerations:
 
     - Railway was the easiest to set up and their payment costs were right. I spun up a Postgres staging and production instance in less than 5 minutes 😳
 
-In the end, I went with a PostgreSQL instance on Railway.
-Now that I had my database requirements set, I went on to design the Database schema for the application:
+In the end, I went with a PostgreSQL on Railway as it satisfied the **reliable** and **nimble** qualities.
+
+My database schema went on to look like the following:
 
 The Database Fluid Charts
 ![Mise Database Schema](/static/images/projects/mise/mise_db_schema.png)
 
 ### Backend
 
-For the backend I was mainly looking for **a safe** way to call my backend from my frontend because this would allow me to be **fast**, **nimble**, and **reliable**. REST, GraphQL, and tRPC were all great candidates, however, tRPC
-was the the best for this project. Here are some of the trade offs I considered:
+For the backend, I was primarily looking for a **safe** way to call my backend from my frontend. This would form increase the reliability of the data
+going into my **frontend** since it would be all typed and my components would know what to expect. Nevertheless, also **nimble** since it would allows me
+the flexibility to manuever in the frontend without having to worry about breaking anything.
+Again, all the data flowing in my frontend is typed, therefore I know data goes into what.
+
+REST, GraphQL, and tRPC were all ok candidates, however, tRPC was the the best for this project. Here are some of the trade offs I considered:
 
 ##### GraphQL
 
-- Pros:
+- Pros 👍🏼:
   - Creates a type safe way to call my backend from the frontend (Ex: GraphQL Code Generator).
   - Useful for establishing a contract between the Frontend and the Backend.
   - Suited for a public facing API.
   - Solves over-fetching in the front end (ex: Performance issues).
   - Can use multiple programing languages.
-- Cons:
+- Cons 👎🏼:
   - Its mental model takes more work to plan.
   - Relies on Code Generation to safely call backend from the frontend.
   - Migrating off it is more complex.
 
 ##### REST
 
-- Pros:
+- Pros 👍🏼:
   - Creates a type safe way to call my backend from my frontend (Ex: Swagger)
   - Can use multiple programing languages.
   - Suited for a public facing API.
   - Easier mental model than GraphQL. I just create end points as I need them.
   - Migrating off it is simple.
-- Cons:
+- Cons 👎🏼:
   - Relies on Code Generation to safely call backend from the frontend.
 
 ##### tRPC
 
-- Pros:
+- Pros 👍🏼:
   - Creates a type safe way to call my backend from my frontend.
   - Automatic typescript connection between the front end and the backend. For example, if I make a change in the
     backend, typescript intellisense will document it live on VSCode.
   - Intellisense auto documentation. Hence, I open up some curly braces and I get a list of the apis available in my backend.
   - Easiest mental model. I just create end points as I need them, and get intellisense automatically.
   - Migrating off it is simple. I just copy paste my code into resolvers and endpoints.
-- Cons:
+- Cons 👎🏼:
   - Has to be a monorepo.
   - Tight coupling of frontend and backend.
   - Backend has to be written in typescript.
   - Best suited for internal services.
 
-Overall, tRPC had the best trade offs for this application. The cons were all negligible for my case, and I got to reap all the pros. Alas,
-I have a **safe** way to call my backend from my frontend, I get top tier automatic intellisense, and if I ever choose to migrate off it, the process would be easy.
-Thus, the **fast**, **nimble**, and **reliable** qualities I'm looking for are maintained.
+Overall, tRPC had the best trade offs for **_Mise_** application. The cons were all negligible for my case, and I got to reap all the pros. Alas,
+I had a **safe** way to call my backend from my frontend, I get top tier automatic intellisense, and if I ever choose to migrate off it, the process would be easy.
+Thus, the **nimble**, and **reliable** qualities I'm looking for were upheld.
 
 #### Next.js vs Custom Backend
 
 Given that tRPC made the most sense for me, I embraced the coupling of frontend and backend, and went with Next.js API routes as the backend.
-It worked amazing. I got a fullstack monorepo out the box, with fullstack typescript support out the box, minimal set up, and
+It worked amazing. I got a fullstack monorepo out the box, with fullstack typescript, minimal set up, and
 the freedom to render on the server or on the client as needed.
-
-#### ZoD
-
-#### Prisma
 
 #### Auth0
 
@@ -117,10 +125,84 @@ I considered [NextAuth.js](https://next-auth.js.org/), however for this applicat
 and this authentication method is explicity marked as limited in functionality with[NextAuth.js](https://next-auth.js.org/).
 Thus, I refrained from NextAuth.js for this specific case.
 
+#### Prisma
+
+I picked Prisma over TypeORM and Sequelize because prisma on average has better tooling, better documentation, and the prisma schema language is easier
+to reason about than expressing the database shape using classes.
+
+As far as tooling for prisma goes. I love prisma studio. Having instant access to run CRUD operations in my database through a GUI allowed
+me to experiment on the fly multiple times through development.
+
+Prisma for 90% of use cases Prisma does the job very well; for the other 10% you can run raw SQL queries.
+
+#### ZoD
+
+ZoD is simply a validation library. Thus, it helps validate inputs for query and mutations and it takes care of typing the input too. Even
+though what it does is so simple, it deserves a shout out because it does it so well it well feels magic 🪄. The right kind 🦄.
+
+For example, in my `itemsByRestaurant` query:
+
+We define the input object with ZoD
+
+```ts
+export const itemsByRestaurantSchema = z.object({
+  restaurantId: z.string(),
+})
+```
+
+Place our value in the input for the prop for my `itemsByRestaurant` query
+
+```ts
+  .query("itemsByRestaurant", {
+    input: itemsByRestaurantSchema,
+    async resolve({ ctx, input }) {
+      const itemsByrestaurant = await ctx.prisma.item.findMany({
+        where: {
+          restaurantId: input.restaurantId,
+        },
+        orderBy: {
+          name: "asc",
+        },
+        include: {
+          unit: {
+            orderBy: {
+              name: "asc",
+            },
+          },
+        },
+      });
+
+      return itemsByrestaurant;
+    },
+  })
+```
+
+And boom, now my query is secure against incorrect inputs from my frontend, and the input variable in the resolver is typed.
+
+If I send the wrong input the server, typescript will not let me.
+
+![Mise, Typed Prisma](/static/images/projects/mise/zodError.png)
+
+#### Backend In Practice
+
+In practice, putting all these technologies together in **_Mise_** looked like the following endpoint:
+
+![Mise, Typed Prisma](/static/images/projects/mise/typedPrisma.png)
+
+Prisma having everything typed off the box 🚀
+
+![Mise, Typed Input](/static/images/projects/mise/typedInput.png)
+
+ZoD typing my inputs 😎
+
+And tRPC bringing it all together seamlessly 🫡
+
+Now this is the true power of typescript! 💥
+
 ### Frontend
 
 For this App I had the freedom to either render it on the client, the backend, or a mix of both since the app was all behind a credentials log in.
-I opted to client render most of the app in order to have it feel snappy and interactive to the user, and
+I opted to client render most of the app in order to have it feel snappy and interactive to the user.
 I used [React Query](https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/) to manage the
 server state, [React Hook Form](https://react-hook-form.com/) for managing state in forms, useState for simple UI state, and
 [useReducer](https://beta.reactjs.org/apis/react/useReducer) for more complex state.
@@ -128,9 +210,33 @@ server state, [React Hook Form](https://react-hook-form.com/) for managing state
 #### React Query
 
 [React Query](https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/) is an amazing library to handle server state.
-By default, I opted to invalidate queries whenever data was updated, and I used optimistic queries for parts of the app I wanted to feel instant and snappy.
+With React Query, when data changes, there are usually three strategies one can use:
 
-Maybe give an example here?
+1. Invalidate queries whenever serer data was updated
+
+   - Pros:
+     - Less Code to Write.
+   - Cons:
+     - Potential Performance Issues.
+     - Doesn't show instantly in the UI.
+
+2. Update cache with mutation response
+
+   - Pros:
+     - More Code to Write.
+   - Cons:
+     - Doesn't show instantly in the UI.
+
+3. Optimistic queries
+
+   - Pros:
+     - Way to write code WAY more code to handle update cache manually, and rollback in case of error.
+     - Display instantly in th UI. Which makes for a snappy and fluid user experience.
+   - Cons:
+     - Server request might fail, and have to rollback. Which may lead to flashy/weird looking behavior in the UI.
+
+For **_Mise_**, I mostly stuck with strategies 1 and 3. Most queries in Mise are light enough to not cause performance issues if re-fetched. Furthermore,
+writing less code is less room for error which helps my **reliability** condition.
 
 #### React Hook Form
 
@@ -140,6 +246,8 @@ Hence, I let [React Hook Form](https://react-hook-form.com/) manage complex form
 Maybe give an example here?
 
 #### Use Reducer
+
+I used us
 
 Give example here? Talk about thought consideration between use reducer and state machines
 
