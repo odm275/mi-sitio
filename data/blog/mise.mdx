@@ -247,14 +247,14 @@ Large Forms such as the form Kitchen Managers use to send orders is a great cand
 ![Mise, Big Form](/static/images/projects/mise/bigForm.png)
 
 There are potentially 100+ inputs in this form, it would be inefficient to have to render the entire form every time an input changes.
-The performance drain would be palpable 🐢. Hence, a good candidates for react hook form.
+The performance loss would be palpable 🐢. Hence, a good candidates for react hook form.
 
 #### useReducer
 
 {/* Theo Rant: https://www.youtube.com/watch?v=5-1LM2NySR0&ab_channel=Theo-ping%E2%80%A4gg */}
 {/* Stately useReducer vs StateX: https://www.youtube.com/watch?v=FrNXCJa5FLs&t=194s&ab_channel=Stately */}
 
-The vast bulk of the state in the app is server state, hence it is handled by React Query, and form state is handled by react hook form. However,
+The vast bulk of the state in **_Mise_** is server state, hence it is handled by React Query, and form state is handled by react hook form. However,
 I needed to consider an additional form of state management solution for a feature in **_Mise_**.
 **_Mise_** has a checkout feature for Kitchen Managers. Kitchen managers fill out an order, and if the order is correct, they submit it.
 
@@ -269,19 +269,35 @@ Order Confirmation
 Order Success
 ![Mise, Kitchen Manager Success](/static/images/projects/mise/kmOrderSucc.png)
 
-The challenge here was to collect user information through different pages and form a cohesive way to representing that through state.
-A flux like store would fit my use case the best.
+The challenge here was to collect user information through different pages and form a cohesive way of representing that through state.
+My state needed to encapsulate the following:
+
+- The state from the form when the user finishes selecting items to order
+- State from what step in the order flow the user is. Example: Ordering, Order Confirmation, and Order Success.
+- The Id number of the order once created.
+
+A flux like store would fit this use case the best because it would encapsulate the logic in one place, and it would allow us to handle state updates by named events.
+Here is a mental picture, to get a better idea:
+
+![Mise, useState vs useReducer](/static/images/projects/mise/useStatevsuseReducer.png)
+
+The classic `useState` approach would leave us with state updates being handled across multiple components and I would not be able to label the event updates
+with a name. For these reasons, I opted for for a flux like store state management solution like useReducer to handle the state here.
 
 React has too many state management solutions, that said, I like having a vast number of libraries to choose from.
 It feels like I am choosing from a toolbox where each tools is specialized for a job.
-I narrowed down my options down to [useReducer](https://beta.reactjs.org/apis/react/useReducer) and [XState](https://xstate.js.org/).
-Libraries like Jotai, and Recoil looked cool, but rather than provider a flux(store, actions, and reducer) like pattern,
-they provide better primitives state primitives. Hence, I felt like they didn't fit my use case the best. In my case, I needed to build a "machine".
 
-useReducer in this case is representing the bulk of Flux like state management solutions like Redux and Zustand. That is not to say each of these
-state management libraries do not have trade offs of their own between each other. For instance, Zustand would without a doubt have better performance than
-useReducer + Context, but given that the client will only submit orders a couple of times a day -- there won't be a performance problem.
-impact this use case, their tradeoffs were negligible.
+Libraries like Jotai, and Recoil looked cool, but rather than provider a flux(store, actions, and reducer) like pattern,
+they provide better primitives state primitives. Hence, I felt like they didn't fit my use case the best. In my case, I needed to build something that would
+encapsulate the logic in a store.
+
+useReducer in this case is representing the bulk of Flux like state management solutions like Redux and Zustand. That is not to say that each of these
+state management libraries do not have trade offs of their own. For instance, Zustand would without a doubt have better performance than
+useReducer + Context, but given that the user will only submit orders a couple of times a day -- there won't be a performance problem.
+Hence, the tradeoffs are negligible in my use case.
+
+Finally, I narrowed down my options down to [useReducer](https://beta.reactjs.org/apis/react/useReducer) and [XState](https://xstate.js.org/).
+XState
 
 #### UI
 
