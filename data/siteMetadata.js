@@ -12,7 +12,7 @@ const siteMetadata = {
   socialBanner: '/static/images/twitter-card.png',
   email: 'oscarmejiaweb@gmail.com',
   github: 'https://github.com/odm275',
-  twitter: 'https://twitter.com/spaceicediver',
+  // twitter: 'https://twitter.com/spaceicediver',
   // facebook: 'https://facebook.com',
   // youtube: 'https://youtube.com',
   // linkedin: 'https://www.linkedin.com',
