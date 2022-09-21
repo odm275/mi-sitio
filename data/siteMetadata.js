@@ -9,7 +9,7 @@ const siteMetadata = {
   siteRepo: 'https://github.com/odm275/mi-sitio',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
-  socialBanner: '/static/images/twitter-card.png',
+  socialBanner: '/static/images/logo.png',
   email: 'oscarmejiaweb@gmail.com',
   github: 'https://github.com/odm275',
   // twitter: 'https://twitter.com/spaceicediver',
