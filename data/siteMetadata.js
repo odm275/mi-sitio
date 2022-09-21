@@ -1,7 +1,7 @@
 const siteMetadata = {
-  title: 'Oscar Mejia Tech Blog',
-  author: 'Oscar Mejia',
-  headerTitle: 'Oscar Mejia',
+  title: 'Oscar Mejia Bautista Tech Blog',
+  author: 'Oscar Mejia Bautista',
+  headerTitle: 'Oscar Mejia Bautista',
   description: 'My Thoughts, Ideas, and Projects.',
   language: 'en-us',
   theme: 'system', // system, dark or light

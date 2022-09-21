@@ -1,5 +1,5 @@
 ---
-name: Oscar Mejia
+name: Oscar Mejia Bautista
 avatar: /static/images/avatar.jpg
 occupation: Software Developer
 company: Freelancing
@@ -9,7 +9,7 @@ email: oscarmejiaweb@gmail.com
 github: https://github.com/odm275
 ---
 
-Oscar Mejia is a Software Developer in Houston, Texas.
+Oscar Mejia Bautista is a Software Developer in Houston, Texas.
 
 I am interested in building Software practically, efficiently, and painlessly. That includes [Typescript](https://www.typescriptlang.org/), [tRPC](https://trpc.io/), [GraphQL](https://graphql.org/), and [Next.js](https://nextjs.org/).
 
