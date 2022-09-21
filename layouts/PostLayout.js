@@ -9,8 +9,9 @@ import Comments from '@/components/comments'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 
 const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/master/data/blog/${fileName}`
+
 const discussUrl = (slug) =>
-  `https://mobile.twitter.com/search?q=${encodeURIComponent(
+  `https://mobile.twitter.com/intent/tweet?text=${encodeURIComponent(
     `${siteMetadata.siteUrl}/blog/${slug}`
   )}`
 
