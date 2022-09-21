@@ -2,15 +2,15 @@
 name: Oscar Mejia
 avatar: /static/images/avatar.jpg
 occupation: Software Developer
-company: Self Employed
+company: Freelancing
 email: oscarmejiaweb@gmail.com
-twitter: https://twitter.com/spaceicediver
-linkedin: https://www.linkedin.com
+# twitter: https://twitter.com/spaceicediver
+# linkedin: https://www.linkedin.com
 github: https://github.com/odm275
 ---
 
 Oscar Mejia is a Software Developer in Houston, Texas.
 
-He is intersted in building Software practically, efficiently, and painlessly. Thus, to that goal his interes include Typescript, tRPC, React, GraphQL, Chackra UI, and Tailwind.
+I am interested in building Software practically, efficiently, and painlessly. That includes [Typescript](https://www.typescriptlang.org/), [tRPC](https://trpc.io/), [GraphQL](https://graphql.org/), and [Next.js](https://nextjs.org/).
 
-He leads and takes part in disucssing projects from ideas with clients, works with designers to produce mock ups, and develops full fledged web applications.
+I lead and take part in discussing projects from ideas to products with clients, work with designers to produce mock ups, and develop fullstack web applications.

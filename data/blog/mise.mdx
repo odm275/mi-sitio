@@ -1,6 +1,6 @@
 ---
 title: Mise - Case Study
-date: '2022-08-19'
+date: '2022-09-19'
 tags: ['Next.js', 'tRPC', 'prisma', 'postgreSQL']
 draft: false
 summary: This post contains the reasoning I used to decide the tech stack for this Mise.
@@ -13,6 +13,14 @@ An efficient management of their inventory and orders needs to occur in order fo
 Candelaris and its businesses needed a comprehensive technology program to improve their inventory management, employee training, communication between
 managers and kitchens, and orders between the kitchen commissary and its locations.
 As an expanding businesses, critical improvements were identified to be able to accommodate growing pains.
+
+## Disclaimer:
+
+The app is behind a log in wall. Hence, I cannot link to it publicly. But see the documentation I wrote for a detailed breakdown of the app:
+
+[Mise Documentation For Admins](https://nickel-nigella-cc0.notion.site/Mise-Documentation-For-Admins-b84b6744da5b4dcbbe6b2890cdf0126e)
+
+[Mise Documentation For Kitchen Managers](https://nickel-nigella-cc0.notion.site/Mise-Documentation-For-Kitchen-Managers-1ae78e43aea141f79d1154fb1669d953)
 
 ## Deciding my Tech Stack
 
@@ -44,10 +52,10 @@ When deciding a database I had two considerations. What type of database I was g
 
 2.  Choose a Cloud Provider (Heroku, Railway, Render, PlanetScale).
 
-    - I considered PlanetScale(mysql) due to their superb version control database management features, however,
+    - I considered [PlanetScale](https://planetscale.com/) due to their superb version control database management features, however,
       given the scale of the project, I felt it was overkill. If the project had an unlimited budget, I would have gone with PlanetScale.
 
-    - Railway was the easiest to set up and their payment costs were right. I spun up a Postgres staging and production instance in less than 5 minutes 😳
+    - [Railway](https://railway.app/) was the easiest to set up and their payment costs were right. I spun up a Postgres staging and production instance in less than 5 minutes 😳
 
 In the end, I went with a PostgreSQL on Railway as it satisfied the **reliable** and **nimble** qualities.
 
@@ -63,7 +71,7 @@ going into my **frontend** since it would be all typed and my components would k
 the flexibility to manuever in the frontend without having to worry about breaking anything.
 Again, all the data flowing in my frontend is typed, therefore I know data goes into what.
 
-REST, GraphQL, and tRPC were all ok candidates, however, tRPC was the the best for this project. Here are some of the trade offs I considered:
+REST, [GraphQL](https://graphql.org/), and [tRPC](https://trpc.io/) were all ok candidates, however, tRPC was the the best for this project. Here are some of the trade offs I considered:
 
 ##### GraphQL
 
@@ -110,7 +118,7 @@ Thus, the **nimble**, and **reliable** qualities I'm looking for were upheld.
 
 #### Next.js vs Custom Backend
 
-Given that tRPC made the most sense for me, I embraced the coupling of frontend and backend, and went with Next.js API routes as the backend.
+Given that tRPC made the most sense for me, I embraced the coupling of frontend and backend, and went with [Next.js](https://nextjs.org/) API routes as the backend.
 It worked amazing. I got a fullstack monorepo out the box, with fullstack typescript, minimal set up, and
 the freedom to render on the server or on the client as needed.
 
@@ -282,22 +290,21 @@ Here is a mental picture, to get a better idea:
 ![Mise, useState vs useReducer](/static/images/projects/mise/useStatevsuseReducer.png)
 
 The classic `useState` approach would leave us with state updates being handled across multiple components and I would not be able to label the event updates
-with a name. For these reasons, I opted for for a flux like store state management solution like useReducer to handle the state here.
+with a name. For these reasons, I opted for a flux like store state management solution like useReducer to handle the state here.
 
 React has too many state management solutions, that said, I like having a vast number of libraries to choose from.
 It feels like I am choosing from a toolbox where each tools is specialized for a job.
 
-Libraries like Jotai, and Recoil looked cool, but rather than provider a flux(store, actions, and reducer) like pattern,
+Libraries like [Jotai](https://jotai.org/), and [Recoil](https://recoiljs.org/) looked cool, but rather than provider a flux(store, actions, and reducer) like pattern,
 they provide better primitives state primitives. Hence, I felt like they didn't fit my use case the best. In my case, I needed to build something that would
 encapsulate the logic in a store.
 
-useReducer in this case is representing the bulk of Flux like state management solutions like Redux and Zustand. That is not to say that each of these
-state management libraries do not have trade offs of their own. For instance, Zustand would without a doubt have better performance than
+`useReducer` in this case is representing the bulk of Flux like state management solutions like [Redux](https://redux.js.org/) and [Zustand](https://github.com/pmndrs/zustand).
+That is not to say that each of these state management libraries do not have trade offs of their own. For instance, Zustand would without a doubt have better performance than
 useReducer + Context, but given that the user will only submit orders a couple of times a day -- there won't be a performance problem.
 Hence, the tradeoffs are negligible in my use case.
 
 Finally, I narrowed down my options down to [useReducer](https://beta.reactjs.org/apis/react/useReducer) and [XState](https://xstate.js.org/).
-XState
 
 #### UI
 
