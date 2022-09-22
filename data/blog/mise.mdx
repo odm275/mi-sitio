@@ -18,9 +18,9 @@ summary: This post contains the reasoning I used to decide the tech stack for th
 
 # The Challenge:
 
-Candelaris and its businesses have a vital mission: To deliver the authentic Italian experience to people in Houston.
+Candelari's and its businesses have a vital mission: To deliver the authentic Italian experience to people in Houston.
 An efficient management of their inventory and orders needs to occur in order for them to be able to accomplish that.
-Candelaris and its businesses needed a comprehensive technology program to improve their inventory management, employee training, communication between
+Candelari's and its businesses needed a comprehensive technology program to improve their inventory management, employee training, communication between
 managers and kitchens, and orders between the kitchen commissary and its locations.
 As an expanding businesses, critical improvements were identified to be able to accommodate growing pains.
 
@@ -34,7 +34,7 @@ The app is behind a log in wall. Hence, I cannot link to it publicly. But see th
 
 ## Deciding my Tech Stack
 
-Candelaris and its businesses are expanding so their needs are in constant flux as they are in the
+Candelari's and its businesses are expanding so their needs are in constant flux as they are in the
 process of understanding what works for them at a larger scale. Hence, the tech stack needed to be **nimble** in order to be adaptable
 to the changes of a growing business, and be **reliable** so the user gets a professional experience.
 Thus, I built **_Mise_** to be an app that brought those qualities together.
@@ -316,6 +316,42 @@ Hence, the tradeoffs are negligible in my use case.
 
 Finally, I narrowed down my options down to [useReducer](https://beta.reactjs.org/apis/react/useReducer) and [XState](https://xstate.js.org/).
 
+XState is different than the Flux like solutions. XState goes a step further. XState's model constraints the user to describe every possible
+combination of the state. This in turn creates a state machine. This is easier explained through a picture:
+
+![Mise, State Machine Prototype](/static/images/projects/mise/mise_state_machine.png)
+Click [here](https://stately.ai/registry/editor/share/2590f3fd-c68d-401f-a3e5-4394c70a8e8e) for interactive version
+
+This adds additional safeguards because events can not happen in any arbitrary order. Thus, you can only go from specific states to other states.
+useReducer just gives you the generic ability to change to any arbitrary state. Hence, there is room for states that should never happen to happen via human error.
+Furthermore all of this logic is in one place, we liked how flux centralized all of your logic into one place. StateX does that in a comprehensive manner.
+
+![Mise, State Machine Full](/static/images/projects/mise/xStateFull.png)
+From [Stately] video(https://www.youtube.com/watch?v=FrNXCJa5FLs&t=194s&ab_channel=Stately)
+
+Weighting the Pros and Cons looked like the following:
+
+- useReducer
+
+  - Pros:
+    - Less learning curve
+  - Cons:
+    - Doesn't scale well
+    - Less reliable
+    - Logic is mostly in one place
+
+- stateX
+
+  - Pros:
+    - Scales well
+    - More reliable
+    - All the logic is truly in one place
+  - Cons:
+    - Higher learning curve.
+
+Ultimately, I stuck with useReducer even though XState is technically better for my scenario. I found XState had a high learning curve. I did not feel
+confident in getting XState working during my time constraint. If I had more time, I would had gone with XState.
+
 #### UI
 
 For the UI I considered between [Chakra UI](https://chakra-ui.com/), [tailwindcss](https://tailwindcss.com/), and [Ant Design](https://ant.design/).
@@ -334,3 +370,16 @@ example instantly.
 
 Having taking all these considerations into account. I felt that Chackra UI slightly edged Tailwind for my specific use case, and that I was going get
 the most productivity, and control when I needed from it. Thus, I went with Chackra UI to handle my UI.
+
+### Conclusion
+
+Ultimately, I feel content with most of the choices I made. They were not perfect, but I am proud of having all the trade offs in mind, and making
+an educated decision from that place. **_Mise_** was an awesome project that it is going to help Candelari's and its businesses expand.
+Delicious things are in store 🍽.
+
+### Credits:
+
+Some thoughts in this blog were inspired by the following videos:
+
+STATE IN REACT - Redux vs React Query vs Zustand vs Jotai vs…: https://www.youtube.com/watch?v=5-1LM2NySR0&ab_channel=Theo-ping%E2%80%A4gg by Theo
+Stately useReducer vs StateX: https://www.youtube.com/watch?v=FrNXCJa5FLs&t=194s&ab_channel=Stately
